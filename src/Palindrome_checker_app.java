@@ -1,15 +1,21 @@
 public class Palindrome_checker_app {
     public static void main(String args[]){
         System.out.println("Welcome to the Palindrome Checker Managaement System\nVersion: 1.0\nSystem initialized successfully.");
-        //UC2
-        String s1 = "Quetzalcoatlus is my favourite dinosaur";
-        int l = s1.length();
-        String reversed = "";
-        for(int i=l-1;i>0;i--){
-            reversed += s1.charAt(i);
+        //UC4
+        String s1 = "madam";
+        char[] chars = s1.toCharArray();
+        int start = 0;
+        int end = chars.length - 1;
+        boolean isPalindrome = true;
+        while(start<end){
+            if(chars[start] != chars[end]){
+                isPalindrome = false;
+                break;
+            }
+            start++;
+            end--;
         }
-        boolean result = s1.equals(reversed);
-        System.out.println("Input text: "+ s1);
-        System.out.println("Is it a Palindrome? : "+result);
+        System.out.println("Input : "+ s1);
+        System.out.println("Is Palindrome? : "+isPalindrome);
     }
 }
