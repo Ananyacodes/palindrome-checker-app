@@ -1,28 +1,82 @@
 import java.util.*;
-
 public class Palindrome_checker_app {
-    public static void main(String args[]){
-        System.out.println("Welcome to the Palindrome Checker Management System\nVersion: 1.0\nSystem initialized successfully.");
-        // UC7
-        String s1 = "madam";
-        Deque<Character> deque = new ArrayDeque<>();
-        for(char c : s1.toCharArray()){
-            deque.addLast(c);
+    static class Node {
+        char data;
+        Node next;
+
+        Node(char data) {
+            this.data = data;
+            this.next = null;
         }
+    }
+    public static Node createList(String s) {
+        Node head = null;
+        Node tail = null;
 
-        boolean isPalindrome = true;
+        for (char c : s.toCharArray()) {
+            Node newNode = new Node(c);
 
-        // Compare front and rear characters
-        while(deque.size() > 1){
-            char front = deque.removeFirst();
-            char rear = deque.removeLast();
-
-            if(front != rear){
-                isPalindrome = false;
-                break;
+            if (head == null) {
+                head = newNode;
+                tail = newNode;
+            } else {
+                tail.next = newNode;
+                tail = newNode;
             }
         }
+        return head;
+    }
+    public static Node reverse(Node head) {
+        Node prev = null;
+        Node current = head;
+        Node next = null;
+
+        while (current != null) {
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+
+        return prev;
+    }
+    public static boolean isPalindrome(Node head) {
+
+        if (head == null || head.next == null)
+            return true;
+        Node slow = head;
+        Node fast = head;
+
+        while (fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        Node secondHalf = reverse(slow.next);
+        Node firstHalf = head;
+        Node tempSecond = secondHalf;
+
+        while (tempSecond != null) {
+            if (firstHalf.data != tempSecond.data) {
+                return false;
+            }
+            firstHalf = firstHalf.next;
+            tempSecond = tempSecond.next;
+        }
+
+        return true;
+    }
+
+    public static void main(String args[]) {
+        //UC8
+        System.out.println("Welcome to the Palindrome Checker Management System");
+        System.out.println("Version: 1.0");
+        System.out.println("System initialized successfully.");
+
+        String s1 = "madam";
+        Node head = createList(s1);
+        boolean result = isPalindrome(head);
+
         System.out.println("Input : " + s1);
-        System.out.println("Is Palindrome? : " + isPalindrome);
+        System.out.println("Is Palindrome? : " + result);
     }
 }
