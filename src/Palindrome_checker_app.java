@@ -1,26 +1,28 @@
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.*;
 
 public class Palindrome_checker_app {
     public static void main(String args[]){
-        System.out.println("Welcome to the Palindrome Checker Managaement System\nVersion: 1.0\nSystem initialized successfully.");
-        //UC6
+        System.out.println("Welcome to the Palindrome Checker Management System\nVersion: 1.0\nSystem initialized successfully.");
+        // UC7
         String s1 = "madam";
-        Queue<Character> queue = new LinkedList<>();
-        Stack<Character> stack = new Stack<>();
+        Deque<Character> deque = new ArrayDeque<>();
         for(char c : s1.toCharArray()){
-            stack.push(c);
-            queue.add(c);
+            deque.addLast(c);
         }
+
         boolean isPalindrome = true;
-        while(!queue.isEmpty()){
-            if(queue.remove() != stack.pop()){
+
+        // Compare front and rear characters
+        while(deque.size() > 1){
+            char front = deque.removeFirst();
+            char rear = deque.removeLast();
+
+            if(front != rear){
                 isPalindrome = false;
                 break;
             }
         }
-        System.out.println("Input : "+ s1);
-        System.out.println("Is Palindrome? : "+isPalindrome);
+        System.out.println("Input : " + s1);
+        System.out.println("Is Palindrome? : " + isPalindrome);
     }
 }
