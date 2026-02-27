@@ -1,27 +1,40 @@
 import java.util.*;
+class PalindromeChecker {
+    private Stack<Character> stack;
+    public PalindromeChecker() {
+        stack = new Stack<>();
+    }
+    public boolean checkPalindrome(String input) {
+        String processed = input.replaceAll("\\s+", "").toLowerCase();
 
-public class Palindrome_checker_app {
-    static int start = 0;
-    public static boolean isPalindromeIgnoreCase(String str) {
-        str = str.replaceAll("\\s+", "").toLowerCase();
-        int n = str.length();
-        for(int i=0; i<n/2; i++){
-            if(str.charAt(i) != str.charAt(n-i-1)){
+        for (int i = 0; i < processed.length(); i++) {
+            stack.push(processed.charAt(i));
+        }
+        for (int i = 0; i < processed.length(); i++) {
+            char original = processed.charAt(i);
+            char reversed = stack.pop();
+
+            if (original != reversed) {
                 return false;
             }
         }
+
         return true;
     }
+}
+public class UseCase11PalindromeCheckerApp {
+
     public static void main(String args[]) {
+
         System.out.println("Welcome to the Palindrome Checker Management System");
         System.out.println("Version: 1.0");
         System.out.println("System initialized successfully.");
-        String s1 = "A man a plan a canal panama";
-        start = 0;
 
-        boolean result = isPalindromeIgnoreCase(s1);
+        String input = "A man a plan a canal panama";
+        PalindromeChecker checker = new PalindromeChecker();
+        boolean result = checker.checkPalindrome(input);
 
-        System.out.println("Input : " + s1);
+        System.out.println("Input : " + input);
         System.out.println("Is Palindrome? : " + result);
     }
 }
